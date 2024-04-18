@@ -68,7 +68,7 @@
 
 .dropdown {
     position: absolute;
-    top: 300px;
+    top: 260px;
     left: 40px;
     z-index: 10;
     font-family: sans-serif;
@@ -125,3 +125,25 @@ option {
 .small-text {
     font-size: 0.8em; /* Adjust the font size as needed */
 }
+
+#stateSearch {
+    margin-right: 10px; /* Add some spacing between the input and button */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  #searchButton {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff; /* Blue color for the button */
+    color: #fff; /* White text color */
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #searchButton:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+  }
