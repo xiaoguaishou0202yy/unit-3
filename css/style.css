@@ -35,7 +35,6 @@
 
 .chart {
     background-color: rgba(128,128,128,.2);
-
     margin: 10px 20px 0 0;
 }
 
@@ -45,7 +44,6 @@
     font-size: 1.5em;
     font-weight: bold;
 }
-
 
 .chartFrame {
     fill: none;
@@ -70,7 +68,7 @@
 
 .dropdown {
     position: absolute;
-    top: 30px;
+    top: 300px;
     left: 40px;
     z-index: 10;
     font-family: sans-serif;
@@ -103,4 +101,27 @@ option {
     border: solid thin #fff;
     padding: 5px 10px;
     top: -75px;
+}
+
+/* Style for the page title */
+.page-title {
+    text-align: center; /* Center align the title */
+    margin-top: 20px; /* Adjust top margin as needed */
+    padding: 10px; /* Add padding for space around the title */
+    background-color: rgb(126, 1, 137); /* Add background color */
+    color: white; /* Add text color */
+    font-size: 24px; /* Adjust font size */
+}
+
+/* Style for the introduction panel */
+.introduction-panel {
+    background-color: #f2f2f2; /* Add background color */
+    padding: 2px; /* Add padding for space around the content */
+    font-size: 16px; /* Adjust font size */
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.small-text {
+    font-size: 0.8em; /* Adjust the font size as needed */
 }

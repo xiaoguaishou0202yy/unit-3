@@ -35,6 +35,21 @@ function setMap(){
         .attr("width", width)
         .attr("height", height);
 
+    // Create the title element
+    var pageTitle = document.createElement("h1");
+    pageTitle.innerHTML = "Violent Crime Rate in the United States, 2022";
+    pageTitle.classList.add("page-title"); // Add a class for styling
+
+    // Create the introduction panel
+    var introductionPanel = document.createElement("div");
+    introductionPanel.innerHTML = "<p>Welcome to our interactive web app showcasing data on U.S. states and territories by violent crime rate in 2022. The data, sourced from the FBI's Uniform Crime Reports and compiled from Wikipedia, provides insights into the prevalence of violent crimes across different regions. Violent crime rates are typically expressed as incidents per 100,000 individuals per year. For example, a violent crime rate of 300 (per 100,000 inhabitants) in a population of 100,000 would signify 300 incidents of violent crime per year in that entire population, or 0.3% of the total.</p><p>Violent crimes encompass a range of offenses, including rape and sexual assault, robbery, assault, and murder. Through our app, you can explore the rates of these four types of violent crimes in each state, offering valuable insights into regional safety and security dynamics. Additionally, the app provides data on the unemployment rate in each state. By analyzing the connections between unemployment rates and violent crime rates, users can gain a deeper understanding of socioeconomic factors influencing crime trends. Explore the dropdown menu to compare the rates of different types of violent crimes and delve into the potential correlations with unemployment rates. Our interactive visualizations aim to facilitate informed analysis and promote awareness of critical societal issues.</p>";
+    introductionPanel.classList.add("introduction-panel"); // Add a class for styling
+
+    // Append the title and introduction panel to the document body
+    document.body.insertBefore(introductionPanel, document.body.firstChild);
+    document.body.insertBefore(pageTitle, introductionPanel);
+
+
     //create Albers equal area conic projection centered on France
     var projection = d3.geoAlbers()
         .center([3.64, 50])
@@ -206,7 +221,7 @@ function setChart(csvData, colorScale){
 
     // Positioning variables
     var chartRight = 20,
-        chartTop = 8;
+        chartTop = 265;
 
     //create a second svg element to hold the bar chart
     var chart = d3.select("body")
@@ -246,7 +261,7 @@ function setChart(csvData, colorScale){
         .attr("x", 40)
         .attr("y", 40)
         .attr("class", "chartTitle")
-        .text("Number of " + expressed + " in each region");
+        .text("Number of " + expressed + " in each state");
 
     //create vertical axis generator
     var yAxis = d3.axisLeft()
@@ -380,8 +395,13 @@ function updateChart(bars, n, colorScale){
         });
         
     var chartTitle = d3.select(".chartTitle")
-        .text("Number of " + expressed + " in each region");
-        
+        .text("Number of " + expressed + " in each state");
+    
+    chartTitle.append("tspan")
+        .attr("x", 200)
+        .attr("dy", "1.2em") // Set the vertical offset for the new line
+        .attr("class", "small-text")
+        .text("(per 100,000 inhabitants)");
 
 };
 
@@ -389,7 +409,7 @@ function updateChart(bars, n, colorScale){
 function highlight(props){
     //change stroke
     var selected = d3.selectAll("." + props.adm1_code)
-        .style("stroke", "blue")
+        .style("stroke", "black")
         .style("stroke-width", "2");
 
     setLabel(props)
