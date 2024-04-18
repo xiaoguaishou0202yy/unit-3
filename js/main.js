@@ -18,6 +18,7 @@ var yScale = d3.scaleLinear()
    .range([670, 0])
    .domain([80, 880]);
 
+
 //begin script when window loads
 window.onload = setMap();
 
@@ -48,6 +49,28 @@ function setMap(){
     // Append the title and introduction panel to the document body
     document.body.insertBefore(introductionPanel, document.body.firstChild);
     document.body.insertBefore(pageTitle, introductionPanel);
+
+    var zoom = d3.zoom()
+        .scaleExtent([1,3])
+        .on("zoom", function(e) {
+            map.selectAll("path")
+                .attr("transform", e.transform);
+        });
+    map.call(zoom);
+
+    // Create a search input for states
+    var stateSearch = document.createElement("input");
+    stateSearch.setAttribute("type", "text");
+    stateSearch.setAttribute("id", "stateSearch");
+    stateSearch.setAttribute("placeholder", "Search for a state");
+    document.body.insertBefore(stateSearch, introductionPanel.nextSibling);
+
+    // Create a search button for the search input
+    var searchButton = document.createElement("button");
+    searchButton.innerHTML = "Search";
+    searchButton.setAttribute("onclick", "searchAndZoom()");
+    document.body.insertBefore(searchButton, stateSearch.nextSibling);
+
 
 
     //create Albers equal area conic projection centered on France
@@ -91,6 +114,7 @@ function setMap(){
         usStates = joinData(usStates, csvData);
 
         console.log(usStates);
+        
             
         //add Europe countries to map
         var country = map.append("path")
@@ -108,7 +132,45 @@ function setMap(){
         setChart(csvData, colorScale);
 
         createDropdown(csvData);
+
+
+
+        // Event listener for the Hawaii button
+        searchButton.addEventListener("click", function() {
+            SearchBar(usStates);
+        });
+
+
+        // Function to zoom the map to Hawaii
+        function SearchBar(usStates) {
+
+            var stateName = document.getElementById('stateSearch').value;
+            // Assuming Hawaii is in the `usStates` dataset
+            var state = usStates.find(function(d) {
+                return d.properties.name.toLowerCase() === stateName.toLowerCase();
+            });
+
+            if (state) {
+                // Get bounds of Hawaii
+                var bounds = path.bounds(state);
+                var dx = bounds[1][0] - bounds[0][0];
+                var dy = bounds[1][1] - bounds[0][1];
+                var x = (bounds[0][0] + bounds[1][0]) / 2;
+                var y = (bounds[0][1] + bounds[1][1]) / 2;
+                var scale = 2;
+                var translate = [chartInnerWidth / 2 - scale * x, chartInnerHeight / 2 - scale * y];
+
+                // Apply zoom and pan transformation to map
+                map.transition()
+                    .duration(750)
+                    .call(zoom.transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale));
+            } else {
+                alert("State not found.");
+            }
+        }
     
+
+
     };
 };
 
@@ -221,7 +283,7 @@ function setChart(csvData, colorScale){
 
     // Positioning variables
     var chartRight = 20,
-        chartTop = 265;
+        chartTop = 230;
 
     //create a second svg element to hold the bar chart
     var chart = d3.select("body")
@@ -397,11 +459,13 @@ function updateChart(bars, n, colorScale){
     var chartTitle = d3.select(".chartTitle")
         .text("Number of " + expressed + " in each state");
     
-    chartTitle.append("tspan")
-        .attr("x", 200)
-        .attr("dy", "1.2em") // Set the vertical offset for the new line
-        .attr("class", "small-text")
-        .text("(per 100,000 inhabitants)");
+    if (expressed !== 'Unemployment Rate (%)') {
+        chartTitle.append("tspan")
+            .attr("x", 200)
+            .attr("dy", "1.2em") // Set the vertical offset for the new line
+            .attr("class", "small-text")
+            .text("(per 100,000 inhabitants)");
+    }
 
 };
 
