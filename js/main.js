@@ -22,6 +22,8 @@ var yScale = d3.scaleLinear()
 //begin script when window loads
 window.onload = setMap();
 
+
+
 //Example 1.3 line 4...set up choropleth map
 function setMap(){
 
@@ -281,8 +283,8 @@ function makeColorScale(data){
 function setChart(csvData, colorScale){
 
     // Positioning variables
-    var chartRight = 20,
-        chartTop = 230;
+    var chartRight = 10,
+        chartTop = 260;
 
     //create a second svg element to hold the bar chart
     var chart = d3.select("body")

@@ -30,12 +30,12 @@
 
 .map {
     border: medium solid #999;
-    margin: 10px 0 0 20px;
+    margin: 20px 0 0 20px;
 }
 
 .chart {
     background-color: rgba(128,128,128,.2);
-    margin: 10px 20px 0 0;
+    margin: 20px 20px 0 0;
 }
 
 
@@ -115,15 +115,20 @@ option {
 }
 
 #stateSearch {
+    position: absolute;
+    top: 300px;
+    left: 400px;
     margin-right: 10px; /* Add some spacing between the input and button */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-  }
+}
   
 #searchButton {
-    position: relative;
+    position: absolute;
+    top: 300px;
+    left: 620px;
     padding: 8px 12px;
     border: none;
     border-radius: 4px;
