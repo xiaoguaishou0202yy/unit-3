@@ -68,7 +68,7 @@ function setMap(){
     // Create a search button for the search input
     var searchButton = document.createElement("button");
     searchButton.innerHTML = "Search";
-    searchButton.setAttribute("onclick", "searchAndZoom()");
+    searchButton.setAttribute("id", "searchButton");
     document.body.insertBefore(searchButton, stateSearch.nextSibling);
 
 
@@ -132,7 +132,6 @@ function setMap(){
         setChart(csvData, colorScale);
 
         createDropdown(csvData);
-
 
 
         // Event listener for the Hawaii button
